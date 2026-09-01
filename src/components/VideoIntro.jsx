@@ -189,11 +189,11 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
         </div>
       )}
 
-      {/* Logo — visível na espera do clique e do segundo 0 ao 6 de reprodução */}
+      {/* Logo — visível na espera do clique e do segundo 0 ao 2 de reprodução */}
       <div
         className={`pointer-events-none absolute left-1/2 top-24 z-10 -translate-x-1/2 transition-all duration-700 md:top-16 ${
           showLogo ? 'opacity-100' : 'opacity-0'
-        } ${!hasStarted ? 'w-48 md:w-64' : 'w-40 md:w-52'}`}
+        } w-64 md:w-[450px]`}
       >
         <img src="/images/aje-logo.png" alt="Ajé Imobiliária" className="w-full" />
       </div>
@@ -208,12 +208,12 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
         </div>
       )}
 
-      {/* Frase do meio — aparece e some sozinha, o vídeo continua rodando */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-24 z-10 flex flex-col items-center px-6 text-center md:bottom-32">
+      {/* Frase do meio — centralizada no meio da tela, aparece e some sozinha */}
+      <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-6 text-center">
         {visibleMidText && (
           <p
             key={visibleMidText.id}
-            className="animate-[fadeInOut_3s_ease-in-out] font-display text-2xl font-light tracking-wide text-aje-ivory md:text-4xl"
+            className="animate-[fadeInOut_2s_ease-in-out] font-display text-2xl font-light tracking-wide text-aje-ivory md:text-4xl"
           >
             {visibleMidText.id === 'pausa-1' ? t('hero.pause1') : t('hero.pause2')}
           </p>
@@ -227,7 +227,7 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
             <img
               src="/images/aje-logo.png"
               alt={t('hero.brand')}
-              className="mx-auto w-64 md:w-96"
+              className="mx-auto w-64 md:w-[450px]"
             />
             <p className="mt-2 font-display text-lg font-light uppercase tracking-wide text-aje-ivory-dim md:text-2xl">
               {t('hero.tagline')}
