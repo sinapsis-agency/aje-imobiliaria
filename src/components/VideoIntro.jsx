@@ -125,12 +125,6 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
     };
   }, [hasStarted, introFinished, staticEnd]);
 
-  // Frase do meio calculada direto a partir do tempo atual — funciona igual
-  // tanto no modo automático (celular) quanto no modo de scroll (desktop).
-  const visibleMidText = MID_PAUSES.find(
-    (p) => currentTime >= p.showAt && currentTime < p.showAt + MID_TEXT_DURATION_S
-  );
-
   const showLogo = !staticEnd && (!hasStarted || (hasStarted && currentTime <= LOGO_VISIBLE_UNTIL));
   const showStartPrompt = !staticEnd && isReady && !hasStarted;
   const showSkip = !staticEnd && loadTimedOut && !hasStarted;
@@ -208,16 +202,25 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
         </div>
       )}
 
-      {/* Frase do meio — centralizada no meio da tela, aparece e some sozinha */}
+      {/* Frase do meio — centralizada no meio da tela. Os dois textos ficam
+          sempre no DOM e só mudam de opacidade (transição suave), em vez de
+          aparecer/desaparecer de verdade — isso evita o "piscar" que
+          acontecia antes ao trocar de frase perto da borda do tempo. */}
       <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-6 text-center">
-        {visibleMidText && (
-          <p
-            key={visibleMidText.id}
-            className="animate-[fadeInOut_2s_ease-in-out] font-display text-2xl font-light tracking-wide text-aje-ivory md:text-4xl"
-          >
-            {visibleMidText.id === 'pausa-1' ? t('hero.pause1') : t('hero.pause2')}
-          </p>
-        )}
+        {MID_PAUSES.map((pause) => {
+          const isVisible =
+            currentTime >= pause.showAt && currentTime < pause.showAt + MID_TEXT_DURATION_S;
+          return (
+            <p
+              key={pause.id}
+              className={`absolute font-display text-2xl font-light tracking-wide text-aje-ivory transition-opacity duration-700 ease-in-out md:text-4xl ${
+                isVisible ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              {pause.id === 'pausa-1' ? t('hero.pause1') : t('hero.pause2')}
+            </p>
+          );
+        })}
       </div>
 
       {/* Pausa final — aqui sim o vídeo para de verdade */}

@@ -10,7 +10,7 @@
 export const VIDEO_SRC = '/videos/hero-intro.mp4';
 export const VIDEO_DURATION = 10.27;
 
-export const LOGO_VISIBLE_UNTIL = 2; // segundos — logo visível do 0 ao 2
+export const LOGO_VISIBLE_UNTIL = 1; // segundos — logo visível do 0 ao 1
 
 // Quanto tempo (ms) cada frase do meio fica na tela antes de desaparecer
 // sozinha. O vídeo NÃO pausa nesses momentos — continua rodando fluido.
@@ -18,7 +18,7 @@ export const MID_TEXT_DURATION_MS = 2000;
 
 // Frases que aparecem SOBRE o vídeo em reprodução contínua, sem pausar.
 export const MID_PAUSES = [
-  { id: 'pausa-1', showAt: 2, text: 'Onde o Nordeste toca o céu.' }, // 2s a 4s
+  { id: 'pausa-1', showAt: 1, text: 'Onde o Nordeste toca o céu.' }, // 1s a 3s
   { id: 'pausa-2', showAt: 5, text: 'Prosperidade tem forma de lar.' }, // 5s a 7s
 ];
 
