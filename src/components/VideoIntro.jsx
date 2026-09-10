@@ -240,6 +240,11 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
               onClick={(e) => {
                 e.stopPropagation();
                 finishIntro();
+                // Pequeno atraso para o scroll da página ser liberado antes
+                // de tentar rolar até a seção — senão o navegador ignora.
+                window.setTimeout(() => {
+                  document.getElementById('imoveis')?.scrollIntoView({ behavior: 'smooth' });
+                }, 50);
               }}
               className="mt-8 rounded-full border border-aje-gold px-8 py-3 text-xs tracking-wide-label text-aje-gold-soft transition-colors hover:bg-aje-gold hover:text-aje-black"
             >

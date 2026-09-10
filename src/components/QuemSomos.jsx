@@ -24,7 +24,7 @@ export default function QuemSomos() {
           </h2>
 
           <p className="mx-auto mt-5 max-w-xl text-base font-light leading-snug text-white/85 md:text-lg">
-            {t('sections.quemSomos.somosIntro')} {t('sections.quemSomos.paragrafo1')}
+            {t('sections.quemSomos.paragrafo1')}
           </p>
 
           <p className="mx-auto mt-4 max-w-xl text-base font-light leading-snug text-white/85 md:text-lg">
