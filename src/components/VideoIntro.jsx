@@ -15,6 +15,8 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
   const { t } = useTranslation();
   const videoRef = useRef(null);
   const hasEndedRef = useRef(false);
+  // Indica que a pessoa iniciou o vídeo pelo botão "plano B" (ver handleForceStart).
+  const forcedStartRef = useRef(false);
 
   const [isReady, setIsReady] = useState(false);
   const [loadTimedOut, setLoadTimedOut] = useState(false);
@@ -49,6 +51,13 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
   const handleLoadedData = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    // Se a pessoa já iniciou o vídeo pelo botão "plano B", não pausamos nem
+    // voltamos ao início: só marcamos como pronto e deixamos o vídeo seguir.
+    if (forcedStartRef.current) {
+      setIsReady(true);
+      return;
+    }
 
     if (staticEnd) {
       video.currentTime = VIDEO_DURATION;
@@ -102,6 +111,20 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
     videoRef.current?.play();
   }, [hasStarted, isReady]);
 
+  // Plano B para celular: alguns navegadores (iPhone, economia de dados,
+  // modo de baixo consumo) não baixam o vídeo até alguém tocar na tela, então
+  // o evento "loadeddata" nunca chega e o vídeo nunca fica "pronto". Este
+  // botão inicia o vídeo direto a partir do toque da pessoa, e o próprio
+  // play() faz o navegador começar a carregar.
+  const handleForceStart = useCallback(() => {
+    if (hasStarted) return;
+    forcedStartRef.current = true;
+    setIsReady(true);
+    setHasStarted(true);
+    const playPromise = videoRef.current?.play();
+    if (playPromise) playPromise.catch(() => {});
+  }, [hasStarted]);
+
   // ---- Reprodução contínua e automática, em qualquer dispositivo ----
   useEffect(() => {
     const video = videoRef.current;
@@ -127,7 +150,7 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
 
   const showLogo = !staticEnd && (!hasStarted || (hasStarted && currentTime <= LOGO_VISIBLE_UNTIL));
   const showStartPrompt = !staticEnd && isReady && !hasStarted;
-  const showSkip = !staticEnd && loadTimedOut && !hasStarted;
+  const showSkip = !staticEnd && loadTimedOut && !isReady && !hasStarted;
 
   return (
     <section
@@ -168,8 +191,18 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
       {showSkip && (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-aje-black text-center">
           <p className="max-w-xs text-sm font-light text-aje-ivory-dim">
-            O vídeo está demorando para carregar.
+            Toque para assistir à introdução.
           </p>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleForceStart();
+            }}
+            className="rounded-full border border-aje-gold bg-aje-gold px-6 py-2 text-xs tracking-wide-label text-aje-black"
+          >
+            ASSISTIR
+          </button>
           <button
             type="button"
             onClick={(e) => {
