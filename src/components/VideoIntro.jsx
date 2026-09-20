@@ -189,7 +189,7 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
       )}
 
       {showSkip && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-aje-black text-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-end gap-4 bg-aje-black px-6 pb-20 text-center md:pb-24">
           <p className="max-w-xs text-sm font-light text-aje-ivory-dim">
             Toque para assistir à introdução.
           </p>
