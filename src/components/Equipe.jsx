@@ -9,7 +9,23 @@ export default function Equipe() {
     { name: 'Eva', designation: t('team.eva'), detail: 'CRECI 7119-RN', imageSrc: TEAM_PHOTOS.eva },
     { name: 'João', designation: t('team.joao'), imageSrc: TEAM_PHOTOS.joao },
     { name: 'Idea Sinapsis', designation: t('team.ideaSinapsis'), imageSrc: TEAM_PHOTOS.ideaSinapsis },
-    { name: t('team.advogadoNome'), designation: t('team.advogado'), imageSrc: TEAM_PHOTOS.advogado },
+    {
+      name: t('team.advogadoNome'),
+      designation: t('team.advogado'),
+      detail: 'OAB/RN 18.256',
+      imageSrc: TEAM_PHOTOS.advogado,
+      bio: t('team.advogadoBio'),
+      links: [
+        { label: 'danielmagnus.com', href: 'https://danielmagnus.com' },
+        { label: '@danielmagnusadv', href: 'https://instagram.com/danielmagnusadv' },
+      ],
+    },
+    {
+      name: 'Sergio Garcia',
+      designation: t('team.sergioGarcia'),
+      imageSrc: TEAM_PHOTOS.sergioGarcia,
+      bio: t('team.sergioGarciaBio'),
+    },
     { name: t('team.topografoNome'), designation: t('team.topografo'), imageSrc: TEAM_PHOTOS.topografo },
   ];
 

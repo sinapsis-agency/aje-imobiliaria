@@ -45,11 +45,36 @@ export const CITY_PHOTOS = {
 };
 
 export const TEAM_PHOTOS = {
-  eva: { src: '/images/equipe/eva.jpg', fallback: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80' },
-  joao: { src: '/images/equipe/joao.jpg', fallback: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80' },
-  ideaSinapsis: { src: '/images/equipe/idea-sinapsis.jpg', fallback: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80' },
-  advogado: { src: '/images/equipe/advogado.jpg', fallback: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&q=80' },
-  topografo: { src: '/images/equipe/topografo.jpg', fallback: 'https://images.unsplash.com/photo-1615109398623-88346a601842?w=400&q=80' },
+  eva: {
+    src: '/images/equipe/eva.jpg',
+    fallback: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80',
+    alt: 'Eva, corretora de imóveis — Ajé Imobiliária, Praia da Pipa',
+  },
+  joao: {
+    src: '/images/equipe/joao.jpg',
+    fallback: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80',
+    alt: 'João, logística em terreno — Ajé Imobiliária',
+  },
+  ideaSinapsis: {
+    src: '/images/equipe/idea-sinapsis.jpg',
+    fallback: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80',
+    alt: 'Idea Sinapsis, design e marketing — Ajé Imobiliária',
+  },
+  advogado: {
+    src: '/images/equipe/advogado.jpg',
+    fallback: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&q=80',
+    alt: 'Dr. Daniel Magnus, advogado especialista em Direito Imobiliário — OAB/RN 18.256',
+  },
+  sergioGarcia: {
+    src: '/images/equipe/sergio-garcia.jpg',
+    fallback: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80',
+    alt: 'Sergio Garcia, corretor de imóveis e perito judicial em avaliação — Ajé Imobiliária',
+  },
+  topografo: {
+    src: '/images/equipe/topografo.jpg',
+    fallback: 'https://images.unsplash.com/photo-1615109398623-88346a601842?w=400&q=80',
+    alt: 'Topógrafo — Ajé Imobiliária',
+  },
 };
 
 export const SERVICE_PHOTOS = {

@@ -123,6 +123,12 @@ function PropertyModal({ property, onClose }) {
           <h3 className="mt-2 font-display text-2xl text-aje-ink">{property.title}</h3>
           <p className="mt-1 font-light text-aje-ink-dim">{property.city}</p>
 
+          {property.description && (
+            <p className="mt-3 text-sm font-light leading-relaxed text-aje-ink-dim">
+              {property.description}
+            </p>
+          )}
+
           <div className="mt-4 flex items-end justify-between border-t border-aje-cafe/15 pt-4">
             <div className="flex gap-6 text-sm">
               <div>
