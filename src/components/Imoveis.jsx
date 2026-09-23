@@ -7,7 +7,7 @@ import LocalImage from './LocalImage';
 
 // Os nomes/rótulos dos filtros ficam SEMPRE em português, mesmo com outro
 // idioma selecionado no site — pedido explícito do cliente.
-const TYPES = ['Todos', 'Venda', 'Aluguel', 'Terreno'];
+const TYPES = ['Todos', 'Venda', 'Aluguel', 'Terreno', 'Outros'];
 const RENTAL_PERIODS = ['Anual', 'Diária', 'Temporada'];
 
 const PRICE_BANDS = [
@@ -93,14 +93,42 @@ function PropertyModal({ property, onClose }) {
         className="max-h-[85vh] w-full max-w-3xl overflow-y-auto bg-aje-paper p-2"
         onClick={(e) => e.stopPropagation()}
       >
-        <LocalImage
-          src={property.photos[activePhoto].src}
-          fallback={property.photos[activePhoto].fallback}
-          alt={property.title}
-          className="aspect-[4/3] w-full object-cover"
-        />
+        <div className="relative">
+          <LocalImage
+            src={property.photos[activePhoto].src}
+            fallback={property.photos[activePhoto].fallback}
+            alt={property.title}
+            className="aspect-[4/3] w-full object-cover"
+          />
 
-        <div className="mt-4 flex gap-2 px-2">
+          {property.photos.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={() =>
+                  setActivePhoto((i) => (i === 0 ? property.photos.length - 1 : i - 1))
+                }
+                aria-label="Foto anterior"
+                className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-aje-ink/60 text-white transition-colors hover:bg-aje-ink/85"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                onClick={() => setActivePhoto((i) => (i + 1) % property.photos.length)}
+                aria-label="Próxima foto"
+                className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-aje-ink/60 text-white transition-colors hover:bg-aje-ink/85"
+              >
+                ›
+              </button>
+              <span className="absolute bottom-3 right-3 rounded-full bg-aje-ink/60 px-2.5 py-1 text-[11px] text-white">
+                {activePhoto + 1} / {property.photos.length}
+              </span>
+            </>
+          )}
+        </div>
+
+        <div className="mt-4 flex gap-2 overflow-x-auto px-2 pb-1 scrollbar-hide">
           {property.photos.map((photo, index) => (
             <button
               key={photo.src}

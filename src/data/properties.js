@@ -65,9 +65,9 @@ export const PROPERTIES = [
     type: 'Terreno',
     area: 'A partir de 300 m² (área total 49.515 m², perímetro 518 m)',
     priceValue: null,
-    priceLabel: 'Sob consulta',
+    priceLabel: 'R$ 300/m² (a partir de 300 m²)',
     description:
-      'Grande área nas falésias de Praia das Minas, com possibilidade de desmembramento em lotes a partir de 300 m².',
+      'Grande área nas falésias de Praia das Minas, com possibilidade de desmembramento em lotes a partir de 300 m² — R$ 300 por metro quadrado.',
     photos: Array.from({ length: 5 }, (_, i) => ({
       src: `/images/imoveis/terreno-praia-das-minas-falesias-pipa-${i + 1}.jpg`,
       fallback: PLACEHOLDER,
@@ -160,6 +160,34 @@ export const PROPERTIES = [
       'Casa cercada de natureza, com duas suítes, área gourmet e estacionamento — aluguel anual na Travessa Rua da Cancela.',
     photos: Array.from({ length: 5 }, (_, i) => ({
       src: `/images/imoveis/aluguel-rua-cancela-pipa-${i + 1}.jpg`,
+      fallback: PLACEHOLDER,
+    })),
+  },
+  {
+    id: 'terreno-rua-camboim',
+    title: 'Terreno na Rua Camboim',
+    city: 'Praia da Pipa',
+    type: 'Terreno',
+    area: '390 m² (11x36 m) · rua na frente e rua atrás',
+    priceValue: 160000,
+    priceLabel: 'R$ 160.000',
+    description: 'Terreno na Rua Camboim, com rua na frente e rua atrás.',
+    photos: Array.from({ length: 2 }, (_, i) => ({
+      src: `/images/imoveis/terreno-rua-camboim-${i + 1}.jpg`,
+      fallback: PLACEHOLDER,
+    })),
+  },
+  {
+    id: 'barco-pesqueiro-barra-cunhau',
+    title: 'Barco pesqueiro — Barra do Cunhaú',
+    city: 'Barra do Cunhaú',
+    type: 'Outros',
+    area: 'Consulte especificações',
+    priceValue: 50000,
+    priceLabel: 'R$ 50.000',
+    description: 'Barco pesqueiro à venda em Barra do Cunhaú.',
+    photos: Array.from({ length: 4 }, (_, i) => ({
+      src: `/images/imoveis/barco-pesqueiro-barra-cunhau-${i + 1}.jpg`,
       fallback: PLACEHOLDER,
     })),
   },

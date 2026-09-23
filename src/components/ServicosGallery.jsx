@@ -12,12 +12,12 @@ function cn(...classes) {
 }
 
 const SERVICES = [
-  { id: 'venda', titleKey: 'services.venda', categoryKey: 'services.categoriaImoveis', ...SERVICE_PHOTOS.venda },
-  { id: 'aluguel', titleKey: 'services.aluguel', categoryKey: 'services.categoriaImoveis', ...SERVICE_PHOTOS.aluguel },
-  { id: 'terrenos', titleKey: 'services.terrenos', categoryKey: 'services.categoriaImoveis', ...SERVICE_PHOTOS.terrenos },
-  { id: 'gestao', titleKey: 'services.gestao', categoryKey: 'services.categoriaSuporte', ...SERVICE_PHOTOS.gestao },
-  { id: 'assessoria', titleKey: 'services.assessoria', categoryKey: 'services.categoriaSuporte', ...SERVICE_PHOTOS.assessoria },
-  { id: 'advogado', titleKey: 'services.advogado', categoryKey: 'services.categoriaSuporte', ...SERVICE_PHOTOS.advogado },
+  { id: 'venda', titleKey: 'services.venda', categoryKey: 'services.categoriaImoveis', shortLabel: 'VENDA', ...SERVICE_PHOTOS.venda },
+  { id: 'aluguel', titleKey: 'services.aluguel', categoryKey: 'services.categoriaImoveis', shortLabel: 'ALUGUEL', ...SERVICE_PHOTOS.aluguel },
+  { id: 'terrenos', titleKey: 'services.terrenos', categoryKey: 'services.categoriaImoveis', shortLabel: 'TERRENOS', ...SERVICE_PHOTOS.terrenos },
+  { id: 'gestao', titleKey: 'services.gestao', categoryKey: 'services.categoriaSuporte', shortLabel: 'GESTÃO', ...SERVICE_PHOTOS.gestao },
+  { id: 'assessoria', titleKey: 'services.assessoria', categoryKey: 'services.categoriaSuporte', shortLabel: 'INTER.', ...SERVICE_PHOTOS.assessoria },
+  { id: 'advogado', titleKey: 'services.advogado', categoryKey: 'services.categoriaSuporte', shortLabel: 'ADVOG.', ...SERVICE_PHOTOS.advogado },
 ];
 
 export default function ServicosGallery() {
@@ -105,7 +105,7 @@ export default function ServicosGallery() {
                 {t(service.titleKey)}
               </span>
               <span className="block text-xs font-medium text-white md:hidden">
-                {t(service.titleKey).slice(0, 3).toUpperCase()}
+                {service.shortLabel}
               </span>
             </div>
           </div>

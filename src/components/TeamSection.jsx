@@ -17,7 +17,7 @@ function TeamCard({ member, index, onOpen }) {
       type="button"
       onClick={() => onOpen(member)}
       onTouchStart={() => setShowDetails(true)}
-      className={`group relative aspect-square w-40 overflow-hidden rounded-xl text-left shadow-sm transition-all duration-300 ease-in-out hover:shadow-lg sm:w-44 ${TINTS[index % TINTS.length]}`}
+      className={`group relative aspect-square w-32 overflow-hidden rounded-xl text-left shadow-sm transition-all duration-300 ease-in-out hover:shadow-lg sm:w-44 ${TINTS[index % TINTS.length]}`}
     >
       <LocalImage
         src={member.imageSrc.src}
@@ -129,7 +129,7 @@ export const TeamSection = forwardRef(
           {/* Largura do contêiner limitada por breakpoint: cabem exatamente 2
               cards por linha no celular e 3 no desktop — a linha incompleta
               (o último membro) sempre fica centralizada, nunca colada num lado. */}
-          <div className="relative z-10 mx-auto flex w-full max-w-[350px] flex-wrap justify-center gap-6 sm:max-w-[610px]">
+          <div className="relative z-10 mx-auto flex w-full max-w-[280px] flex-wrap justify-center gap-4 sm:max-w-[610px] sm:gap-6">
             {members.map((member, index) => (
               <TeamCard key={member.name} member={member} index={index} onOpen={setOpenMember} />
             ))}

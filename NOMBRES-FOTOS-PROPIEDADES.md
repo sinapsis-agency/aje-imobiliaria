@@ -36,6 +36,12 @@ Formato recomendado: `.jpg`, horizontal, ~1600×1200 px (ver guía de tamaños)
 ### 10. Casa — Rua da Cancela (aluguel anual)
 `aluguel-rua-cancela-pipa-1.jpg` a `-5.jpg` (5 fotos)
 
+### 11. Terreno — Rua Camboim
+`terreno-rua-camboim-1.jpg` a `-2.jpg` (2 fotos)
+
+### 12. Barco pesqueiro — Barra do Cunhaú (categoría "Outros")
+`barco-pesqueiro-barra-cunhau-1.jpg` a `-4.jpg` (4 fotos)
+
 ---
 
 Apenas subas las fotos con estos nombres exactos en esa carpeta, van a aparecer solas en el sitio (mismo sistema de siempre: mientras no estén, se ve un espacio de respaldo neutro en vez de un hueco en blanco).

@@ -164,6 +164,7 @@ export default function VideoIntro({ onIntroComplete, staticEnd = false }) {
         ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover"
         src={VIDEO_SRC}
+        poster="/images/hero-poster.jpg"
         preload="auto"
         muted
         playsInline
