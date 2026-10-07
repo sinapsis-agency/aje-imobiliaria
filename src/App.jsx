@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import Somos from './pages/Somos';
+import PropertyPage from './pages/PropertyPage';
 
 // Ao trocar de página (ex: Home -> Somos), o React Router NÃO reseta o
 // scroll sozinho — sem isso, a nova página abre na mesma posição de scroll
@@ -23,7 +24,11 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/en" element={<HomePage />} />
         <Route path="/somos" element={<Somos />} />
+        <Route path="/en/somos" element={<Somos />} />
+        <Route path="/:slug" element={<PropertyPage />} />
+        <Route path="/en/:slug" element={<PropertyPage />} />
       </Routes>
     </BrowserRouter>
   );

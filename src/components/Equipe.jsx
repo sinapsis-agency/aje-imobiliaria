@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { TeamSection } from './TeamSection';
 import { TEAM_PHOTOS } from '../data/images';
+import { WHATSAPP_DISPLAY, whatsappLink } from '../data/site';
 
 export default function Equipe() {
   const { t } = useTranslation();
@@ -12,6 +13,10 @@ export default function Equipe() {
       detail: 'CRECI 7119-RN',
       imageSrc: TEAM_PHOTOS.eva,
       bio: t('team.evaBio'),
+      links: [
+        { label: WHATSAPP_DISPLAY, href: whatsappLink('Olá Eva! Gostaria de mais informações.') },
+        { label: 'ajeimobiliaria@gmail.com', href: 'mailto:ajeimobiliaria@gmail.com' },
+      ],
     },
     {
       name: 'João',

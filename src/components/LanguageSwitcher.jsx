@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronDown, Check } from 'lucide-react';
+import { buildLanguagePath } from '../utils/languageUrl';
 
 // Adaptado do componente TSX/shadcn (language-selector-dropdown) para Vite +
 // React + JavaScript, com as cores da marca Ajé em vez do tema shadcn.
@@ -17,8 +19,20 @@ export default function LanguageSwitcher({ isLight }) {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const selected = LANGUAGES.find((l) => l.code === i18n.language) ?? LANGUAGES[0];
+
+  const handleLanguageChange = (code) => {
+    i18n.changeLanguage(code);
+    // Inglês tem URL própria (/en/...) para o Google indexar o conteúdo
+    // nesse idioma — os outros seguem como tradução só no navegador.
+    const nextPath = buildLanguagePath(location.pathname, code);
+    if (nextPath !== location.pathname) {
+      navigate(nextPath + location.hash);
+    }
+  };
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -54,7 +68,7 @@ export default function LanguageSwitcher({ isLight }) {
               key={lang.code}
               type="button"
               onClick={() => {
-                i18n.changeLanguage(lang.code);
+                handleLanguageChange(lang.code);
                 setOpen(false);
               }}
               className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors ${

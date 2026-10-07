@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PROPERTIES } from '../data/properties';
+import { Link } from 'react-router-dom';
+import { PROPERTIES, getPropertySlug } from '../data/properties';
 import { AREAS } from '../data/areas';
-import { whatsappLink } from '../data/site';
 import LocalImage from './LocalImage';
 
 // Os nomes/rótulos dos filtros ficam SEMPRE em português, mesmo com outro
@@ -20,13 +20,12 @@ const PRICE_BANDS = [
   { id: 'gt1.5m', label: 'Acima de R$ 1,5 milhão', test: (v) => v >= 1500000 },
 ];
 
-function PropertyCard({ property, onOpen }) {
+function PropertyCard({ property }) {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <button
-      type="button"
-      onClick={() => onOpen(property)}
+    <Link
+      to={`/${getPropertySlug(property)}`}
       onTouchStart={() => setShowDetails(true)}
       className="group relative aspect-[4/5] w-full overflow-hidden rounded-sm text-left"
     >
@@ -68,125 +67,12 @@ function PropertyCard({ property, onOpen }) {
           <span>{property.priceLabel}</span>
         </div>
       </div>
-    </button>
-  );
-}
-
-function PropertyModal({ property, onClose }) {
-  const [activePhoto, setActivePhoto] = useState(0);
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-aje-ink/80 p-4"
-      onClick={onClose}
-    >
-      <button
-        type="button"
-        onClick={onClose}
-        className="absolute right-6 top-6 text-xs tracking-wide-label text-white hover:text-aje-cafe-soft"
-        aria-label="Fechar"
-      >
-        FECHAR ✕
-      </button>
-
-      <div
-        className="max-h-[85vh] w-full max-w-3xl overflow-y-auto bg-aje-paper p-2"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="relative">
-          <LocalImage
-            src={property.photos[activePhoto].src}
-            fallback={property.photos[activePhoto].fallback}
-            alt={property.title}
-            className="aspect-[4/3] w-full object-cover"
-          />
-
-          {property.photos.length > 1 && (
-            <>
-              <button
-                type="button"
-                onClick={() =>
-                  setActivePhoto((i) => (i === 0 ? property.photos.length - 1 : i - 1))
-                }
-                aria-label="Foto anterior"
-                className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-aje-ink/60 text-white transition-colors hover:bg-aje-ink/85"
-              >
-                ‹
-              </button>
-              <button
-                type="button"
-                onClick={() => setActivePhoto((i) => (i + 1) % property.photos.length)}
-                aria-label="Próxima foto"
-                className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-aje-ink/60 text-white transition-colors hover:bg-aje-ink/85"
-              >
-                ›
-              </button>
-              <span className="absolute bottom-3 right-3 rounded-full bg-aje-ink/60 px-2.5 py-1 text-[11px] text-white">
-                {activePhoto + 1} / {property.photos.length}
-              </span>
-            </>
-          )}
-        </div>
-
-        <div className="mt-4 flex gap-2 overflow-x-auto px-2 pb-1 scrollbar-hide">
-          {property.photos.map((photo, index) => (
-            <button
-              key={photo.src}
-              type="button"
-              onClick={() => setActivePhoto(index)}
-              className={`h-16 w-16 shrink-0 overflow-hidden border ${
-                index === activePhoto ? 'border-aje-cafe' : 'border-transparent opacity-60'
-              }`}
-            >
-              <LocalImage src={photo.src} fallback={photo.fallback} alt="" className="h-full w-full object-cover" />
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-6 px-2 pb-4">
-          <p className="text-xs tracking-wide-label text-aje-cafe-soft">
-            {property.type.toUpperCase()}
-            {property.rentalPeriod ? ` · ${property.rentalPeriod.toUpperCase()}` : ''}
-          </p>
-          <h3 className="mt-2 font-display text-2xl text-aje-ink">{property.title}</h3>
-          <p className="mt-1 font-light text-aje-ink-dim">{property.city}</p>
-
-          {property.description && (
-            <p className="mt-3 text-sm font-light leading-relaxed text-aje-ink-dim">
-              {property.description}
-            </p>
-          )}
-
-          <div className="mt-4 flex items-end justify-between border-t border-aje-cafe/15 pt-4">
-            <div className="flex gap-6 text-sm">
-              <div>
-                <p className="text-aje-ink-dim">Área</p>
-                <p className="font-display text-aje-ink">{property.area}</p>
-              </div>
-              <div>
-                <p className="text-aje-ink-dim">Valor</p>
-                <p className="font-display text-aje-ink">{property.priceLabel}</p>
-              </div>
-            </div>
-
-            <a
-              href={whatsappLink(`Olá! Tenho interesse no imóvel "${property.title}".`)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-aje-cafe px-5 py-2.5 text-xs tracking-wide-label text-aje-paper transition-opacity hover:opacity-90"
-            >
-              CONTATE-NOS AQUI
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+    </Link>
   );
 }
 
 export default function Imoveis() {
   const { t } = useTranslation();
-  const [openProperty, setOpenProperty] = useState(null);
   const [location, setLocation] = useState('Todas');
   const [type, setType] = useState('Todos');
   const [rentalPeriod, setRentalPeriod] = useState('Todos');
@@ -281,15 +167,11 @@ export default function Imoveis() {
         ) : (
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
             {filtered.map((property) => (
-              <PropertyCard key={property.id} property={property} onOpen={setOpenProperty} />
+              <PropertyCard key={property.id} property={property} />
             ))}
           </div>
         )}
       </div>
-
-      {openProperty && (
-        <PropertyModal property={openProperty} onClose={() => setOpenProperty(null)} />
-      )}
     </section>
   );
 }

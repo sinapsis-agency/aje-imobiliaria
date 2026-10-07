@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SITE } from '../data/site';
+import { buildLanguagePath } from '../utils/languageUrl';
 
 const YEAR = new Date().getFullYear();
 
@@ -13,6 +15,20 @@ const LANGUAGES = [
 
 export default function Footer() {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLanguageChange = (code) => {
+    i18n.changeLanguage(code);
+    // Inglês tem URL própria (/en/...) — só essa troca realmente navega,
+    // para que o Google indexe a versão em inglês de cada página. Os
+    // outros idiomas continuam como tradução no navegador, sem URL própria.
+    const nextPath = buildLanguagePath(location.pathname, code);
+    if (nextPath !== location.pathname) {
+      navigate(nextPath + location.hash);
+    }
+  };
+
   return (
     <footer className="border-t border-aje-cafe/15 bg-aje-paper px-6 py-10">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
@@ -28,7 +44,7 @@ export default function Footer() {
             <button
               key={lang.code}
               type="button"
-              onClick={() => i18n.changeLanguage(lang.code)}
+              onClick={() => handleLanguageChange(lang.code)}
               aria-label={lang.code}
               className={`text-lg transition-opacity hover:opacity-100 ${
                 i18n.language === lang.code ? 'opacity-100' : 'opacity-40'
