@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { PROPERTIES, getPropertySlug } from '../data/properties';
 import { AREAS } from '../data/areas';
+import { getUrlLanguage } from '../utils/languageUrl';
 import LocalImage from './LocalImage';
 
 // Os nomes/rótulos dos filtros ficam SEMPRE em português, mesmo com outro
@@ -20,12 +21,21 @@ const PRICE_BANDS = [
   { id: 'gt1.5m', label: 'Acima de R$ 1,5 milhão', test: (v) => v >= 1500000 },
 ];
 
-function PropertyCard({ property }) {
+// Exportado também para as páginas de categoria (CategoryPage.jsx) reusarem
+// o mesmo cartão — mesma aparência, sem duplicar o componente.
+export function PropertyCard({ property }) {
+  const { t } = useTranslation();
   const [showDetails, setShowDetails] = useState(false);
+  const location = useLocation();
+  // Mantém o idioma da URL atual ao navegar para o imóvel (ex: de /en para
+  // /en/<slug>) — sem isso, o link sempre levava para a versão em
+  // português, mesmo navegando a partir de /en ou /es.
+  const urlLang = getUrlLanguage(location.pathname);
+  const prefix = urlLang ? `/${urlLang}` : '';
 
   return (
     <Link
-      to={`/${getPropertySlug(property)}`}
+      to={`${prefix}/${getPropertySlug(property)}`}
       onTouchStart={() => setShowDetails(true)}
       className="group relative aspect-[4/5] w-full overflow-hidden rounded-sm text-left"
     >
@@ -44,6 +54,13 @@ function PropertyCard({ property }) {
         }`}
       />
 
+      {/* Selo discreto para os imóveis em destaque pedidos pela cliente */}
+      {property.featured && (
+        <span className="absolute left-3 top-3 z-10 rounded-full border border-white/40 bg-aje-ink/70 px-3 py-1 text-[10px] font-medium tracking-wide-label text-white backdrop-blur-sm">
+          {t('badges.featured').toUpperCase()}
+        </span>
+      )}
+
       <div
         className={`absolute inset-x-0 bottom-0 p-5 transition-transform duration-300 md:translate-y-6 md:group-hover:translate-y-0 ${
           showDetails ? 'translate-y-0' : ''
@@ -56,16 +73,45 @@ function PropertyCard({ property }) {
         <p className="mt-1 font-display text-lg text-white">{property.title}</p>
         <p className="text-sm font-light text-white/75">{property.city}</p>
 
-        {/* Extra: só aparece no hover (desktop) ou toque (mobile) */}
+        {/* Terrenos: o preço por m² é o que mais importa para comparar
+            lotes, então fica sempre visível e em destaque — o valor total
+            (quando existe) vira informação secundária, só no hover/toque. */}
+        {property.type === 'Terreno' && property.pricePerM2Label && (
+          <p className="mt-1 text-base font-semibold text-aje-cafe-soft">{property.pricePerM2Label}</p>
+        )}
+
+        {/* Casas, aluguéis e outros: o valor também fica sempre visível,
+            igual ao preço por m² dos terrenos — com o preço antigo riscado
+            ao lado quando há desconto (ex: Casa Cruzeiro do Sul). */}
+        {property.type !== 'Terreno' && property.priceLabel && (
+          <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
+            <p className="text-base font-semibold text-aje-cafe-soft">{property.priceLabel}</p>
+            {property.priceOriginal && (
+              <p className="text-xs text-white/55 line-through">{property.priceOriginal}</p>
+            )}
+          </div>
+        )}
+
+        {/* Extra: só aparece no hover (desktop) ou toque (mobile). Nos
+            terrenos, o valor total completa o preço por m² que já aparece
+            sempre visível acima. */}
         <div
           className={`mt-2 flex items-center gap-3 text-xs font-light text-white/90 opacity-0 transition-opacity duration-300 md:group-hover:opacity-100 ${
             showDetails ? 'opacity-100' : ''
           }`}
         >
           <span>{property.area}</span>
-          <span className="text-aje-cafe-soft">·</span>
-          <span>{property.priceLabel}</span>
+          {property.type === 'Terreno' && property.priceLabel && (
+            <>
+              <span className="text-aje-cafe-soft">·</span>
+              <span>{property.priceLabel}</span>
+            </>
+          )}
         </div>
+
+        {property.highlight && (
+          <p className="mt-1.5 line-clamp-2 text-xs font-medium text-aje-cafe-soft">{property.highlight}</p>
+        )}
       </div>
     </Link>
   );

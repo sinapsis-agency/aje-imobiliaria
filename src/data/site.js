@@ -14,3 +14,14 @@ export const SITE = {
   creci: '7119-RN',
   domain: 'www.ajeimobiliaria.com',
 };
+
+// Redes sociais da Ajé (mesmo usuário nas duas).
+export const SOCIAL = {
+  instagram: 'https://www.instagram.com/ajeimobiliaria',
+  tiktok: 'https://www.tiktok.com/@ajeimobiliaria',
+};
+
+// Google Analytics 4. Deixe vazio até criar a conta; quando tiver o ID
+// ("G-XXXXXXXXXX", em Admin > Fluxos de dados), cole aqui e publique —
+// nenhum script do Google é carregado enquanto estiver vazio.
+export const GA_MEASUREMENT_ID = 'G-ZWTG9SCYBT';

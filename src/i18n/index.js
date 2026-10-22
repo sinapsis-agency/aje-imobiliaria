@@ -81,6 +81,9 @@ const resources = {
         todosTipos: 'Todos os tipos',
         semResultados: 'Nenhum imóvel encontrado com esses filtros. Fale com a gente pelo WhatsApp — talvez tenhamos algo que ainda não está no site.',
       },
+      badges: {
+        featured: 'Oportunidade única',
+      },
       buttons: {
         agendarAtendimento: 'Agendar atendimento',
         queroAnunciar: 'Quero anunciar',
@@ -162,6 +165,9 @@ const resources = {
         todasLocalizacoes: 'All locations',
         todosTipos: 'All types',
         semResultados: "No properties match these filters. Message us on WhatsApp — we might have something that isn't on the site yet.",
+      },
+      badges: {
+        featured: 'Unique opportunity',
       },
       buttons: {
         agendarAtendimento: 'Book an appointment',
@@ -245,6 +251,9 @@ const resources = {
         todosTipos: 'Todos los tipos',
         semResultados: 'No encontramos propiedades con estos filtros. Escríbenos por WhatsApp — quizás tengamos algo que aún no está en el sitio.',
       },
+      badges: {
+        featured: 'Oportunidad única',
+      },
       buttons: {
         agendarAtendimento: 'Agendar atención',
         queroAnunciar: 'Quiero anunciar',
@@ -325,6 +334,9 @@ const resources = {
         todasLocalizacoes: 'Tutte le località',
         todosTipos: 'Tutti i tipi',
         semResultados: 'Nessun immobile trovato con questi filtri. Scrivici su WhatsApp — potremmo avere qualcosa non ancora sul sito.',
+      },
+      badges: {
+        featured: 'Opportunità unica',
       },
       buttons: {
         agendarAtendimento: 'Prenota un appuntamento',
@@ -407,6 +419,9 @@ const resources = {
         todasLocalizacoes: 'Toutes les localisations',
         todosTipos: 'Tous les types',
         semResultados: "Aucun bien ne correspond à ces filtres. Écrivez-nous sur WhatsApp — nous avons peut-être quelque chose qui n'est pas encore sur le site.",
+      },
+      badges: {
+        featured: 'Opportunité unique',
       },
       buttons: {
         agendarAtendimento: 'Prendre rendez-vous',

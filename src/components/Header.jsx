@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Menu, X } from 'lucide-react';
 import { whatsappLink } from '../data/site';
+import { getUrlLanguage } from '../utils/languageUrl';
 import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header({ forceLight = false }) {
   const { t } = useTranslation();
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(forceLight);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -20,11 +22,18 @@ export default function Header({ forceLight = false }) {
 
   const isLight = forceLight || scrolled;
 
+  // Mantém o idioma da URL (/en, /es) ao navegar pelo menu — sem isso, o
+  // menu sempre levava de volta para a home/âncoras em português.
+  const urlLang = getUrlLanguage(location.pathname);
+  const prefix = urlLang ? `/${urlLang}` : '';
+  const homeHref = prefix || '/';
+  const anchorPrefix = prefix || '/'; // '/en', '/es' ou '/' (raiz, pt)
+
   const LINKS = [
-    { href: '/somos', label: t('nav.quemSomos'), type: 'route' },
-    { href: '/#imoveis', label: t('nav.imoveis'), type: 'anchor' },
-    { href: '/#servicos', label: t('nav.servicos'), type: 'anchor' },
-    { href: '/#contato', label: t('nav.contato'), type: 'anchor' },
+    { href: `${prefix}/somos`, label: t('nav.quemSomos'), type: 'route' },
+    { href: `${anchorPrefix}#imoveis`, label: t('nav.imoveis'), type: 'anchor' },
+    { href: `${anchorPrefix}#servicos`, label: t('nav.servicos'), type: 'anchor' },
+    { href: `${anchorPrefix}#contato`, label: t('nav.contato'), type: 'anchor' },
   ];
 
   return (
@@ -34,7 +43,7 @@ export default function Header({ forceLight = false }) {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link to="/" className="flex items-center gap-3" onClick={() => setMenuOpen(false)}>
+        <Link to={homeHref} className="flex items-center gap-3" onClick={() => setMenuOpen(false)}>
           <img
             src="/images/aje-logo.png"
             alt="Ajé Imobiliária"

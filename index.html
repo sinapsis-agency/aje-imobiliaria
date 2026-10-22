@@ -10,11 +10,14 @@
       name="description"
       content="Imobiliária boutique em Pipa, Tibau do Sul, Natal e João Pessoa. Venda, aluguel e terrenos com apoio jurídico completo. 35 anos de experiência local."
     />
-    <meta
-      name="keywords"
-      content="Ajé Imobiliária, Ajé Imóveis, AjéImóveis, imobiliária Pipa, imobiliária Natal, imobiliária Nordeste, imóveis Praia da Pipa, Pipa Beach real estate"
-    />
+    <!-- meta keywords removida: o Google a ignora há mais de uma década -->
     <link rel="canonical" href="https://www.ajeimobiliaria.com/" />
+
+    <!-- Hreflang: as tags reais são inseridas dinamicamente por página (ver
+         src/utils/seoHead.js), já que o site é uma SPA e cada rota precisa
+         apontar para a SUA PRÓPRIA versão em cada idioma (home, imóvel,
+         etc). Não duplicar aqui estaticamente — isso poluiria as páginas
+         internas com hreflangs apontando sempre para a home. -->
 
     <!-- Open Graph -->
     <meta property="og:title" content="Ajé Imobiliária | Imóveis em Pipa, RN e Litoral do Nordeste" />
@@ -47,6 +50,10 @@
       "telephone": "+5584994766720",
       "image": "https://www.ajeimobiliaria.com/images/aje-logo.png",
       "priceRange": "$$-$$$",
+      "sameAs": [
+        "https://www.instagram.com/ajeimobiliaria",
+        "https://www.tiktok.com/@ajeimobiliaria"
+      ],
       "areaServed": [
         "Natal", "João Pessoa", "Praia da Pipa", "Pipa Beach", "Sibaúma",
         "Baía Formosa", "Barra do Cunhaú", "Redinha", "Tibau do Sul"

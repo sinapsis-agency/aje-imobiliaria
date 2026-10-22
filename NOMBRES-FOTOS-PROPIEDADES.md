@@ -77,6 +77,18 @@ Formato recomendado: `.jpg`, horizontal, ~1600×1200 px (ver guía de tamaños)
 ### 22. Terreno Praia das Minas
 `terreno-praia-das-minas-pipa-1.jpg` a `-6.jpg` (6 fotos)
 
+### 23. Terreno na Rua Sorocaba (R$ 25.000)
+`terreno-rua-sorocaba-pipa-1.jpg` y `-2.jpg` (2 fotos)
+
+### 24. Terreno na Rua Harmonia (lotes desde R$ 500/m²)
+`terreno-rua-harmonia-pipa-1.jpg` a `-3.jpg` (3 fotos)
+
+### 25. Terreno para venda rápida (R$ 186.000)
+`terreno-venda-rapida-pipa-1.jpg` (1 foto)
+
+### 26. Chalé na Rua Sebastião — Rua das Pedrinhas (R$ 200.000)
+`chale-rua-sebastiao-pipa-1.jpg` a `-4.jpg` (4 fotos)
+
 ---
 
 Apenas subas las fotos con estos nombres exactos en esa carpeta, van a aparecer solas en el sitio (mismo sistema de siempre: mientras no estén, se ve un espacio de respaldo neutro en vez de un hueco en blanco).
