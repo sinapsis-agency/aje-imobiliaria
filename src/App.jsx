@@ -2,6 +2,8 @@ import { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { CATEGORIES } from './data/categories';
 import { INVEST_PAGE } from './data/investPage';
+import { GUIDE } from './data/guide';
+import { MARES } from './data/mares';
 import { trackPageView } from './utils/analytics';
 
 // Cada página carrega só quando é visitada (code-splitting por rota), em
@@ -14,6 +16,9 @@ const Somos = lazy(() => import('./pages/Somos'));
 const PropertyPage = lazy(() => import('./pages/PropertyPage'));
 const CategoryPage = lazy(() => import('./pages/CategoryPage'));
 const InvestPage = lazy(() => import('./pages/InvestPage'));
+const GuideIndexPage = lazy(() => import('./pages/GuideIndexPage'));
+const GuidePostPage = lazy(() => import('./pages/GuidePostPage'));
+const MaresPage = lazy(() => import('./pages/MaresPage'));
 
 // Ao trocar de página (ex: Home -> Somos), o React Router NÃO reseta o
 // scroll sozinho — sem isso, a nova página abre na mesma posição de scroll
@@ -73,6 +78,21 @@ export default function App() {
           const slug = INVEST_PAGE.slugs[lang];
           const path = lang === 'pt' ? `/${slug}` : `/${lang}/${slug}`;
           return <Route key={path} path={path} element={<InvestPage />} />;
+        })}
+
+        {/* "Descubra Pipa": índice e artigos (2 segmentos, não colidem com /:slug). */}
+        {['pt', 'en', 'es'].flatMap((lang) => {
+          const base = lang === 'pt' ? `/${GUIDE.slugs[lang]}` : `/${lang}/${GUIDE.slugs[lang]}`;
+          return [
+            <Route key={base} path={base} element={<GuideIndexPage />} />,
+            <Route key={`${base}/:postSlug`} path={`${base}/:postSlug`} element={<GuidePostPage />} />,
+          ];
+        })}
+
+        {/* "Marés em Pipa": página única por idioma (antes do catch-all). */}
+        {['pt', 'en', 'es'].map((lang) => {
+          const path = lang === 'pt' ? `/${MARES.slugs[lang]}` : `/${lang}/${MARES.slugs[lang]}`;
+          return <Route key={path} path={path} element={<MaresPage />} />;
         })}
 
         <Route path="/:slug" element={<PropertyPage />} />

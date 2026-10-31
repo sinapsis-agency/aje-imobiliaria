@@ -18,6 +18,9 @@ import { fileURLToPath } from 'url';
 import { PROPERTIES, getPropertySlug } from '../src/data/properties.js';
 import { CATEGORIES } from '../src/data/categories.js';
 import { INVEST_PAGE } from '../src/data/investPage.js';
+import { GUIDE, POSTS, postLangs, postHasLang, getGuideUrl, getPostUrl } from '../src/data/guide.js';
+
+import { MARES, maresIsLive, maresLangs, getMaresUrl } from '../src/data/mares.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -140,6 +143,51 @@ for (const lang of LANGS) {
     image: LOGO,
     alternates: alternatesFor(INVEST_PAGE.slugs),
   });
+}
+
+// ---- Descubra Pipa (só artigos publicados; sem artigos, nada é gerado) ----
+const published = POSTS.filter((p) => p.published);
+const altsFor = (langs, urlOf) => [
+  ...langs.map((l) => ({ hreflang: HREFLANG[l], href: urlOf(l) })),
+  { hreflang: 'x-default', href: urlOf(langs.includes('pt') ? 'pt' : langs[0]) },
+];
+for (const lang of LANGS) {
+  if (!published.some((p) => postHasLang(p, lang))) continue;
+  const langsWithPosts = LANGS.filter((l) => published.some((p) => postHasLang(p, l)));
+  write(lang, GUIDE.slugs[lang], {
+    url: getGuideUrl(lang, SITE_URL),
+    title: GUIDE.metaTitle[lang],
+    description: GUIDE.metaDescription[lang],
+    image: LOGO,
+    alternates: altsFor(langsWithPosts, (l) => getGuideUrl(l, SITE_URL)),
+  });
+}
+for (const post of published) {
+  const langs = postLangs(post);
+  for (const lang of langs) {
+    const image = post.image && fs.existsSync(path.join(PUBLIC, post.image)) ? `${SITE_URL}${post.image}` : LOGO;
+    write(lang, `${GUIDE.slugs[lang]}/${post.slugs[lang]}`, {
+      url: getPostUrl(post, lang, SITE_URL),
+      title: `${post[lang].title} | Ajé Imobiliária`,
+      description: post[lang].description,
+      image,
+      alternates: altsFor(langs, (l) => getPostUrl(post, l, SITE_URL)),
+    });
+  }
+}
+
+// ---- Marés em Pipa (só quando publicada e sem "[PREENCHER" sobrando) ----
+if (maresIsLive()) {
+  const maresLangsList = maresLangs();
+  for (const lang of maresLangsList) {
+    write(lang, MARES.slugs[lang], {
+      url: getMaresUrl(lang, SITE_URL),
+      title: MARES[lang].metaTitle,
+      description: MARES[lang].description,
+      image: LOGO,
+      alternates: altsFor(maresLangsList, (l) => getMaresUrl(l, SITE_URL)),
+    });
+  }
 }
 
 // ---- Imóveis (mesma lógica de src/pages/PropertyPage.jsx) ----

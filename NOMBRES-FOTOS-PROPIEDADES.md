@@ -74,7 +74,7 @@ Formato recomendado: `.jpg`, horizontal, ~1600×1200 px (ver guía de tamaños)
 ### 21. 4 chalés em Pipa
 `quatro-chales-pipa-1.jpg` a `-9.jpg` (9 fotos)
 
-### 22. Terreno Praia das Minas
+### 22. Terreno Praia das Minas — RETIRADO DEL SITIO (no anunciar hasta terminar el usucapião; el código se puede recuperar si se vuelve a publicar)
 `terreno-praia-das-minas-pipa-1.jpg` a `-6.jpg` (6 fotos)
 
 ### 23. Terreno na Rua Sorocaba (R$ 25.000)

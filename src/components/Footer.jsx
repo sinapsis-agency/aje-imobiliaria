@@ -4,6 +4,8 @@ import { SITE, SOCIAL } from '../data/site';
 import { buildLanguagePath, getUrlLanguage } from '../utils/languageUrl';
 import { CATEGORIES } from '../data/categories';
 import { INVEST_PAGE } from '../data/investPage';
+import { GUIDE, guideHasPosts } from '../data/guide';
+import { MARES, maresVisible, getMaresPath } from '../data/mares';
 
 const FOOTER_LINK_LABEL = {
   pt: { terreno: 'Terrenos em Pipa', venda: 'Casas à venda em Pipa', aluguel: 'Aluguel em Pipa' },
@@ -98,6 +100,22 @@ export default function Footer() {
         >
           {INVEST_LINK_LABEL[urlLang] ?? INVEST_LINK_LABEL.pt}
         </Link>
+        {guideHasPosts(urlLang) && (
+          <Link
+            to={`${urlLang === 'pt' ? '' : `/${urlLang}`}/${GUIDE.slugs[urlLang]}`}
+            className="text-xs tracking-wide text-aje-ink-dim transition-colors hover:text-aje-cafe"
+          >
+            {GUIDE.name[urlLang]}
+          </Link>
+        )}
+        {maresVisible(urlLang) && (
+          <Link
+            to={getMaresPath(urlLang)}
+            className="text-xs tracking-wide text-aje-ink-dim transition-colors hover:text-aje-cafe"
+          >
+            {MARES.name[urlLang]}
+          </Link>
+        )}
       </nav>
 
       <div className="mx-auto mt-4 max-w-6xl border-t border-aje-cafe/10 pt-6 text-center">

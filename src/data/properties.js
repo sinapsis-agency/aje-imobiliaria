@@ -73,31 +73,6 @@ export const PROPERTIES = [
     })),
   },
   {
-    id: 'terreno-praia-das-minas-pipa',
-    title: 'Terreno Praia das Minas',
-    city: 'Praia da Pipa',
-    type: 'Terreno',
-    featured: true,
-    area: 'A partir de 300 m² (área total 14.200 m²)',
-    priceValue: null,
-    priceLabel: 'R$ 300/m² (a partir de 300 m²)',
-    pricePerM2Label: 'R$ 300/m²',
-    description:
-      'Terreno Praia das Minas, com vista para o mar — possibilidade de desmembramento em lotes a partir de 300 m², R$ 300 por metro quadrado.',
-    descriptionEn:
-      'Praia das Minas land, with ocean views — can be subdivided into lots starting at 300 m², R$300 per square meter.',
-    descriptionEs:
-      'Terreno Praia das Minas, con vista al mar — posibilidad de desmembramiento en lotes a partir de 300 m², R$300 por metro cuadrado.',
-    descriptionIt:
-      'Terreno Praia das Minas, con vista sul mare — possibilità di suddivisione in lotti a partire da 300 m², R$300 al metro quadrato.',
-    descriptionFr:
-      'Terrain Praia das Minas, avec vue sur la mer — possibilité de division en lots à partir de 300 m², R$300 le mètre carré.',
-    photos: Array.from({ length: 6 }, (_, i) => ({
-      src: `/images/imoveis/terreno-praia-das-minas-pipa-${i + 1}.jpg`,
-      fallback: PLACEHOLDER,
-    })),
-  },
-  {
     id: 'terreno-rua-das-pedrinhas-pipa',
     title: 'Terreno para desmembramento — Rua das Pedrinhas',
     city: 'Praia da Pipa',

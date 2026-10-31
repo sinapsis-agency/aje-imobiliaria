@@ -11,6 +11,9 @@ import { fileURLToPath } from 'url';
 import { PROPERTIES, getPropertySlug } from '../src/data/properties.js';
 import { CATEGORIES } from '../src/data/categories.js';
 import { INVEST_PAGE } from '../src/data/investPage.js';
+import { GUIDE, POSTS, LANGS, postHasLang, getGuideUrl, getPostUrl } from '../src/data/guide.js';
+
+import { maresIsLive, maresLangs, getMaresUrl } from '../src/data/mares.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -40,6 +43,26 @@ for (const category of CATEGORIES) {
 url(`${SITE_URL}/${INVEST_PAGE.slugs.pt}`, 'monthly', '0.8');
 url(`${SITE_URL}/en/${INVEST_PAGE.slugs.en}`, 'monthly', '0.7');
 url(`${SITE_URL}/es/${INVEST_PAGE.slugs.es}`, 'monthly', '0.7');
+
+// Descubra Pipa: índice (por idioma que já tenha artigo) + cada artigo publicado
+const publishedPosts = POSTS.filter((p) => p.published);
+for (const lang of LANGS) {
+  if (publishedPosts.some((p) => postHasLang(p, lang))) {
+    url(getGuideUrl(lang, SITE_URL), 'weekly', lang === 'pt' ? '0.7' : '0.6');
+  }
+}
+for (const post of publishedPosts) {
+  for (const lang of LANGS) {
+    if (postHasLang(post, lang)) url(getPostUrl(post, lang, SITE_URL), 'monthly', lang === 'pt' ? '0.7' : '0.6');
+  }
+}
+
+// Marés em Pipa (só quando publicada e sem "[PREENCHER" sobrando)
+if (maresIsLive()) {
+  for (const lang of maresLangs()) {
+    url(getMaresUrl(lang, SITE_URL), 'monthly', lang === 'pt' ? '0.7' : '0.6');
+  }
+}
 
 // Cada propriedade, agrupada pt/en/es
 for (const property of PROPERTIES) {
