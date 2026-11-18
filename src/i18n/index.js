@@ -18,6 +18,8 @@ const resources = {
         tagline: 'Bem-vindo ao Nordeste.',
         cta: 'Descobrir imóveis',
         clickToStart: 'Clique para começar',
+        scrollHint: 'Role para explorar',
+        skip: 'Pular introdução',
       },
       sections: {
         quemSomos: {
@@ -104,6 +106,8 @@ const resources = {
         tagline: 'Welcome to the Nordeste.',
         cta: 'Discover properties',
         clickToStart: 'Click to begin',
+        scrollHint: 'Scroll to explore',
+        skip: 'Skip intro',
       },
       sections: {
         quemSomos: {
@@ -189,6 +193,8 @@ const resources = {
         tagline: 'Bienvenido al Nordeste.',
         cta: 'Descubrir propiedades',
         clickToStart: 'Haz clic para comenzar',
+        scrollHint: 'Desplázate para explorar',
+        skip: 'Saltar introducción',
       },
       sections: {
         quemSomos: {
@@ -274,6 +280,8 @@ const resources = {
         tagline: 'Benvenuto nel Nordeste.',
         cta: 'Scopri gli immobili',
         clickToStart: 'Clicca per iniziare',
+        scrollHint: 'Scorri per esplorare',
+        skip: 'Salta l\'intro',
       },
       sections: {
         quemSomos: {
@@ -358,6 +366,8 @@ const resources = {
         tagline: 'Bienvenue dans le Nordeste.',
         cta: 'Découvrir les biens',
         clickToStart: 'Cliquez pour commencer',
+        scrollHint: 'Faites défiler pour explorer',
+        skip: 'Passer l\'intro',
       },
       sections: {
         quemSomos: {
