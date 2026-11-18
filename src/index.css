@@ -68,6 +68,16 @@
     overflow-x: hidden;
   }
 
+  /* "hidden" em body/#root os transforma em contêineres de rolagem, o que
+     quebra o position: sticky do hero em scroll. "clip" corta o excesso
+     lateral do mesmo jeito, sem criar contêiner de rolagem. */
+  @supports (overflow-x: clip) {
+    body,
+    #root {
+      overflow-x: clip;
+    }
+  }
+
   ::selection {
     background-color: var(--color-aje-cafe);
     color: var(--color-aje-paper);
