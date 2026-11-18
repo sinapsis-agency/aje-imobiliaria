@@ -1,0 +1,9 @@
+Quadros do hero (intro controlada pelo scroll).
+Gerados do video com ffmpeg, 10 quadros por segundo:
+
+desktop (960x540):
+  ffmpeg -i hero-intro.mp4 -vf "fps=10,scale=960:540:flags=lanczos" -c:v libwebp -quality 42 -compression_level 6 desktop/f%03d.webp
+celular (recorte vertical central 406x720):
+  ffmpeg -i hero-intro.mp4 -vf "fps=10,crop=406:720:437:0" -c:v libwebp -quality 50 -compression_level 6 mobile/f%03d.webp
+
+Depois ajuste `count` em src/data/videoIntro.js (FRAME_SETS) ao numero de arquivos gerados.
