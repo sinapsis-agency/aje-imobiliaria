@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import VideoIntro from '../components/VideoIntro';
+import ScrollHero from '../components/ScrollHero';
 import Header from '../components/Header';
 import Imoveis from '../components/Imoveis';
 import Servicos from '../components/Servicos';
@@ -30,8 +30,10 @@ export default function HomePage() {
 
   // Se o vídeo já foi visto nesta sessão de navegação (SPA), não mostra de
   // novo — só um refresh real da página (F5) reinicia introState.seen.
-  const [introDone, setIntroDone] = useState(introState.seen);
-  const alreadySeen = introState.seen;
+  // `alreadySeen` é fixado na montagem: ao terminar a intro (introState.seen
+  // vira true) o hero NÃO pode trocar para o modo estático no meio da rolagem.
+  const [, setIntroDone] = useState(introState.seen);
+  const [alreadySeen] = useState(introState.seen);
 
   const handleIntroComplete = () => {
     introState.seen = true;
@@ -89,7 +91,7 @@ export default function HomePage() {
 
       <Header />
 
-      {alreadySeen ? <VideoIntro staticEnd /> : <VideoIntro onIntroComplete={handleIntroComplete} />}
+      {alreadySeen ? <ScrollHero staticEnd /> : <ScrollHero onIntroComplete={handleIntroComplete} />}
 
       <main>
         <Imoveis />
